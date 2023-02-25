@@ -4,16 +4,17 @@ from .models import Conversation
 from item.models import Item
 from .forms import ConversationMessageForm
 
+
 def new_conversation(request, item_pk):
     item = get_object_or_404(Item, pk=item_pk)
 
     if item.created_by == request.user:
         return redirect('dashboard:index')
 
-    conversation = Conversation.objects.filter(item=item).filter(members__in=request.user.id)
+    conversation = Conversation.objects.filter(item=item).filter(members__in=[request.user.id])
 
     if conversation:
-        pass # redirect to conversation
+        pass  # redirect to conversation
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
