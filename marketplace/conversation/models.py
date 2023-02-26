@@ -13,6 +13,9 @@ class Conversation(models.Model):
     class Meta:
         ordering = ('-modified_at',)
 
+    def __str__(self):
+        return f' last updated at {str(self.modified_at)[0:19]}'
+
 
 class ConversationMessage(models.Model):
     conversation = models.ForeignKey(Conversation, related_name='messages', on_delete=models.CASCADE)
